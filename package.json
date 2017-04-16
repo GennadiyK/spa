@@ -1,0 +1,27 @@
+{
+  "name": "spa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node notes-app/server/app.js "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GennadiyK/spa.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GennadiyK/spa/issues"
+  },
+  "homepage": "https://github.com/GennadiyK/spa#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.4.0",
+    "koa": "^2.0.0-alpha.8",
+    "koa-router": "^7.1.1",
+    "standard": "^10.0.2"
+  }
+}
