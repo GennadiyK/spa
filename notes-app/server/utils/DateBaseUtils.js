@@ -19,7 +19,7 @@ module.exports = {
       createAt: new Date()
     })
 
-    await note.save()
+    return note.save()
   },
   deleteNote: async (id) => {
     await Note.remove({_id: id})
