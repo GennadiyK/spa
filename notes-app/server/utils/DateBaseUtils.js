@@ -9,7 +9,7 @@ module.exports = {
     mongoose.connect('mongodb://localhost/notes')
   },
   listNotes: async () => {
-    await Note.find({})
+    return Note.find({})
   },
   createNote: async (data) => {
     let note = await Note.create({
@@ -22,6 +22,6 @@ module.exports = {
     return note.save()
   },
   deleteNote: async (id) => {
-    await Note.remove({_id: id})
+    return Note.findOneAndRemove({_id: id})
   }
 }

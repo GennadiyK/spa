@@ -7,10 +7,10 @@ const db = require('./utils/DateBaseUtils')
 
 db.setupConnection()
 
-router.get('/notes', (ctx) => {
-  db.listNotes().then(data => {
-    ctx.body = data
-  })
+router.get('/notes', async (ctx) => {
+  let res = await db.listNotes()
+  ctx.body = res
+  ctx.status = 200
 })
 
 router.post('/notes', async (ctx) => {
@@ -19,10 +19,10 @@ router.post('/notes', async (ctx) => {
   ctx.status = 201
 })
 
-router.delete('/notes/:id', (ctx) => {
-  db.deleteNote(ctx.param.id).then(data => {
-    ctx.body = data
-  })
+router.delete('/notes/:id', async (ctx) => {
+  let res = await db.deleteNote(ctx.params.id)
+  ctx.body = res
+  ctx.status = 200
 })
 
 app.use(bodyParser())
