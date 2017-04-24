@@ -4,6 +4,7 @@ const app = new Koa()
 const router = new Router()
 const bodyParser = require('koa-bodyparser')
 const db = require('./utils/DateBaseUtils')
+const {serverPort} = require('etc/config.json')
 
 db.setupConnection()
 
@@ -28,5 +29,5 @@ router.delete('/notes/:id', async (ctx) => {
 app.use(bodyParser())
 app.use(router.routes())
 app.listen(3000, () => {
-  console.log('server is running on localhost:3000')
+  console.log(`server is running on localhost:${serverPort}`)
 })

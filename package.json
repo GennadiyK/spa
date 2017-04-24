@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon notes-app/server/app.js "
+    "start": "cross-env NODE_PATH=src/server nodemon src/server/app.js "
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "standard": "^10.0.2"
   },
   "dependencies": {
+    "cross-env": "^4.0.0",
     "koa-bodyparser": "^3.2.0"
   }
 }

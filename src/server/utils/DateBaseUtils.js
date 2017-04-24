@@ -1,12 +1,13 @@
 const mongoose = require('mongoose')
-const Note = require('../models/Note')
+const Note = require('models/Note')
+const config = require('etc/config.json')
 
 mongoose.Promise = Promise
 mongoose.set('debug', true)
 
 module.exports = {
   setupConnection: () => {
-    mongoose.connect('mongodb://localhost/notes')
+    mongoose.connect(`mongodb://${config.db.host}/${config.db.name}`)
   },
   listNotes: async () => {
     return Note.find({})
