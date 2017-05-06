@@ -1,8 +1,11 @@
 const router = require('koa-router')()
+var views = require('koa-views')
 
 module.exports = function(app) {
-  router.get('/todo', (ctx) => {
-    console.log('get')
+  app.use(views(`views`, { extension: 'ejs' }))
+
+  router.get('/todo', async (ctx) => {
+    await ctx.render('todo')
   })
 
   router.post('/todo', (ctx) => {
