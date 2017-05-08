@@ -2,23 +2,32 @@
 <html lang="eng">
  <head>
      <title>Todo list</title>
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-     <link rel="stylesheet" href="css/style.css">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+     <link rel="stylesheet" href="style.css">
  </head>
 <body>
+<h1>My ToDo list</h1>
  <div id="todo-table">
-     <form action="/todo" method="POST">
-         <input type="text" name="item" placeholder="Add new item..." required>
+     <form action="" id="todoForm" >
+         <input type="text" name="task" placeholder="Add new item..." >
          <button type="submit">Add Item</button>
      </form>
 
-     <ul class="list-group">
-         <li>Item 1</li>
-         <li>Item 2</li>
-         <li>Item 3</li>
+     <ul class="list-group" id="list">
+        <%for(let i = 0; i < todos.length; i++){%>
+           <li><%= todos[i].task %></li>
+         <%}%>
      </ul>
  </div>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script>
+    todoForm.onsubmit = function() {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '/todo', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify({task: this.elements.task.value}));
+
+      window.location.reload()
+      return false;
+  };
+</script>
 </body>
 </html>
