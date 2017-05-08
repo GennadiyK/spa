@@ -8,13 +8,13 @@
 <h1>My ToDo list</h1>
  <div id="todo-table">
      <form action="" id="todoForm" >
-         <input type="text" name="task" placeholder="Add new item..." >
+         <input type="text" name="taskText" placeholder="Add new item..." >
          <button type="submit">Add Item</button>
      </form>
 
      <ul class="list-group" id="list">
         <%for(let i = 0; i < todos.length; i++){%>
-           <li><%= todos[i].task %></li>
+           <li><%= todos[i].taskText %></li>
          <%}%>
      </ul>
  </div>
@@ -23,11 +23,26 @@
       const xhr = new XMLHttpRequest();
       xhr.open('POST', '/todo', true);
       xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.send(JSON.stringify({task: this.elements.task.value}));
+      xhr.send(JSON.stringify({taskText: this.elements.taskText.value}));
 
       window.location.reload()
       return false;
   };
+
+    function deleteItem(elem) {
+      const xhr = new XMLHttpRequest();
+      xhr.open('DELETE', `/todo/${elem}`, true)
+      xhr.send();
+    }
+
+    let item = document.querySelectorAll('li');
+    item.forEach((elem) => {
+      elem.addEventListener('click', function(){
+        let item = this.textContent.replace(/ /g,'')
+
+       deleteItem(item)
+      })
+    })
 </script>
 </body>
 </html>
