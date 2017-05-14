@@ -17,6 +17,7 @@ module.exports = function(app) {
   router.post('/todo', async (ctx) => {
     console.log('!!!!!',ctx.request.body)
     let data = await Todo.create({
+      taskTitle: ctx.request.body.taskTitle,
       taskText: ctx.request.body.taskText
     });
     ctx.status = 201
@@ -24,9 +25,10 @@ module.exports = function(app) {
     ctx.body = data
   })
 
-  router.delete('/todo/:id', (ctx) => {
-    console.log(ctx.params)
-    ctx.body = 'ok'
+  router.delete('/todo/:id', async (ctx) => {
+     let res = await Todo.findOneAndRemove({'_id': ctx.params.id})
+    console.log(res)
+     ctx.body = res
   })
 
   app.use(bodyParser());
