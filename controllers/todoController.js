@@ -11,15 +11,14 @@ module.exports = function(app) {
   router.get('/todo', async (ctx) => {
     ctx.status = 200
     let data = await Todo.find({})
-    console.log(data)
     await ctx.render('todos', {todos: data, port: apiPrefix})
   })
 
   router.get('/todo/edit/:id', async (ctx) => {
-    let data = await Todo.find({'_id': ctx.params.id})
-    console.log(ctx.port)
-    ctx.body = data
+    let [data] = await Todo.find({'_id': ctx.params.id})
+    console.log(data)
     ctx.status = 200
+    await ctx.render('todoEdit', { todo: data })
   })
 
   router.post('/todo', async (ctx) => {
@@ -32,10 +31,11 @@ module.exports = function(app) {
     ctx.body = data
   })
 
-  router.put('/todo/:id', async (ctx) => {
-    // let res = await Todo.findOneAndRemove({'_id': ctx.params.id})
-    ctx.status = 201
-    console.log(ctx.params.id)
+  router.put('/todo/edit/:id', async (ctx) => {
+    let {taskTitle, taskText} = ctx.request.body
+    let data = await Todo.findOneAndUpdate({ _id: ctx.params.id }, { 'taskTitle': taskTitle,'taskText': taskText}, { new : true })
+    ctx.status = 200
+    ctx.body = data
   })
 
   router.delete('/todo/:id', async (ctx) => {
