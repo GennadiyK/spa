@@ -33,9 +33,15 @@ module.exports = function(app) {
 
   router.put('/todo/edit/:id', async (ctx) => {
     let {taskTitle, taskText} = ctx.request.body
-    let data = await Todo.findOneAndUpdate({ _id: ctx.params.id }, { 'taskTitle': taskTitle,'taskText': taskText}, { new : true })
-    ctx.status = 200
-    ctx.body = data
+    try {
+      let data = await Todo.findOneAndUpdate({ _id: ctx.params.id }, { 'taskTitle': taskTitle,'taskText': taskText}, { new : true })
+      ctx.status = 200
+      ctx.body = 'ok'
+    } catch (err) {
+      throw(err)
+    }
+
+
   })
 
   router.delete('/todo/:id', async (ctx) => {

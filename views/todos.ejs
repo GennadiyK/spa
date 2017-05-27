@@ -12,11 +12,11 @@
      <form action="/todo" id="todoForm" method="post">
          <div class="form-group">
              <label for="taskTitle">Title</label>
-             <input type="text" name="taskTitle" class="form-control" placeholder="Add title..." >
+             <input type="text" name="taskTitle" class="form-control" placeholder="Add title..." required>
          </div>
          <div class="form-group">
              <label for="taskText">Text</label>
-             <textarea name="taskText" class="form-control" placeholder="Add text..." ></textarea>
+             <textarea name="taskText" class="form-control" placeholder="Add text..." required></textarea>
          </div>
          <button class="btn btn-primary" type="submit">Add Item</button>
      </form>
@@ -55,18 +55,10 @@
 
     function deleteTask(elem) {
       const xhr = new XMLHttpRequest();
-      xhr.open('DELETE', `todo/${elem}`, true)
+      xhr.open('DELETE', `/todo/${elem}`, true)
       xhr.send();
 
       window.location.reload()
-      return false;
-    }
-
-    function updateTask(elem) {
-      const xhr = new XMLHttpRequest();
-      xhr.open('PUT', `todo/${elem}`, true)
-      xhr.send();
-
       return false;
     }
 
