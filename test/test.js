@@ -1,6 +1,10 @@
-const assert = require('assert')
-const {serverPort} = require('../config.json')
+const {apiPrefix, serverPort} = require('../config.json')
 const app = require('../app')
+const should = require('should');
+const request = require("request").defaults({
+  encoding: null
+});
+
 let server
 
 describe('todo REST API', () => {
@@ -12,9 +16,19 @@ describe('todo REST API', () => {
     server.close(done)
   })
 
-  describe('#indexOf()', function(){
-    it('should return -1 when the value is not present', function(){
-      assert.equal(-1, [1,2,3].indexOf(4)); // 4 is not present in this array so indexOf returns -1
+  describe('GET /todo', function(){
+    it('should return list of tasks', function(done){
+
+      request.get({url:`${apiPrefix}/todo`, json: true}, (error, response, body) => {
+        if (error) return done(error);
+        // (!!!) not body.should.eql(fixtureContent),
+        // cause buffers are compared byte-by-byte for diff (slow)
+        response.statusCode.should.equal(200)
+
+        console.log(body.toString('utf-8'))
+        done();
+      });
+
     })
   })
 });
