@@ -1,5 +1,6 @@
-const {apiPrefix, serverPort} = require('../config.json')
-const app = require('../app')
+const {apiPrefix, serverPort} = require('../../config.json')
+const app = require('../../app')
+let fixtures = require('./fixtures/fixtures')
 const should = require('should');
 const request = require("request").defaults({
   encoding: null
@@ -10,6 +11,7 @@ let server
 describe('todo REST API', () => {
   before( done => {
     server = app.listen(serverPort, '127.0.0.1', done);
+    console.log(fixtures)
   })
 
   after( done => {

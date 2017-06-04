@@ -1,7 +1,7 @@
 const router = require('koa-router')()
 const views = require('koa-views')
 const bodyParser = require('koa-bodyparser')
-const {apiPrefix} = require('../config.json')
+const {apiPrefix} = require('../../config.json')
 const Todo = require('../db/todo')
 
 
