@@ -1,3 +1,7 @@
 let todo = require('./todo')
 
-todo.load()
+async function main () {
+ await todo.load()
+}
+
+module.exports = main

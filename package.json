@@ -6,10 +6,11 @@
   "devDependencies": {
     "cross-env": "^5.0.0",
     "request": "^2.81.0",
-    "request-promise": "^4.2.1"
+    "request-promise": "^4.2.1",
+    "should": "^11.2.1"
   },
   "scripts": {
-    "test": "mocha src/test"
+    "test": "mocha --harmony src/test"
   },
   "repository": {
     "type": "git",

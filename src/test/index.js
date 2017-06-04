@@ -1,15 +1,16 @@
 const {apiPrefix, serverPort} = require('../../config.json')
 const app = require('../../app')
-let fixtures = require('./fixtures/fixtures')
-const should = require('should');
+const loadFixtures = require('./fixtures/fixtures')
+const todo = require('./fixtures/todo')
+let assert = require('assert');
 const request = require("request").defaults({
   encoding: null
 });
 
-let server
+let server, task
 
 describe('todo REST API', () => {
-  before( done => {
+  before((done) => {
     server = app.listen(serverPort, '127.0.0.1', done);
   })
 
@@ -17,19 +18,19 @@ describe('todo REST API', () => {
     server.close(done)
   })
 
+  beforeEach(async () => {
+    await loadFixtures()
+  })
+
+  afterEach(async () => {
+    todo.deleteTodo()
+  })
+
   describe('GET /todo', function(){
-    it('should return list of tasks', function(done){
-
-      request.get({url:`${apiPrefix}/todo`, json: true}, (error, response, body) => {
-        if (error) return done(error);
-        // (!!!) not body.should.eql(fixtureContent),
-        // cause buffers are compared byte-by-byte for diff (slow)
-        response.statusCode.should.equal(200)
-
-        console.log(body.toString('utf-8'))
-        done();
-      });
-
+    it('should return task from db', async () => {
+      let [task] = await todo.getTodo()
+      assert.equal(task.taskTitle, 'Task title - TEST');
+      assert.equal(task.taskText, 'Task text - TEST');
     })
   })
 });
