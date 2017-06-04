@@ -11,7 +11,6 @@ let server
 describe('todo REST API', () => {
   before( done => {
     server = app.listen(serverPort, '127.0.0.1', done);
-    console.log(fixtures)
   })
 
   after( done => {

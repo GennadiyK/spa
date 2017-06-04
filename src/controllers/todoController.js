@@ -6,7 +6,7 @@ const Todo = require('../db/todo')
 
 
 module.exports = function(app) {
-  app.use(views(`views`, { extension: 'ejs' }))
+  app.use(views(`src/views`, { extension: 'ejs' }))
 
   router.get('/todo', async (ctx) => {
     ctx.status = 200
