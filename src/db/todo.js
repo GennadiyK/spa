@@ -6,7 +6,7 @@ let todoSchema = new mongoose.Schema({
   taskText: {
     type: String
   }
-},{
+}, {
   timestamps: true
 })
 

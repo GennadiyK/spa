@@ -3,8 +3,7 @@ const views = require('koa-views')
 const bodyParser = require('koa-bodyparser')
 const Todo = require('../db/todo')
 
-
-module.exports = function(app) {
+module.exports = function (app) {
   app.use(views(`src/views`, { extension: 'ejs' }))
 
   router.get('/todo', async (ctx) => {
@@ -24,7 +23,7 @@ module.exports = function(app) {
     let data = await Todo.create({
       taskTitle: ctx.request.body.taskTitle,
       taskText: ctx.request.body.taskText
-    });
+    })
     ctx.status = 200
     ctx.res.setHeader('Content-Type', 'application/json')
     ctx.body = data
@@ -33,25 +32,20 @@ module.exports = function(app) {
   router.put('/todo/edit/:id', async (ctx) => {
     let {taskTitle, taskText} = ctx.request.body
     try {
-      let data = await Todo.findOneAndUpdate({ _id: ctx.params.id }, { 'taskTitle': taskTitle,'taskText': taskText}, { new : true })
+      await Todo.findOneAndUpdate({ _id: ctx.params.id }, {'taskTitle': taskTitle, 'taskText': taskText}, { new: true })
       ctx.status = 200
       ctx.body = 'ok'
     } catch (err) {
-      throw(err)
+      throw (err)
     }
-
-
   })
 
   router.delete('/todo/:id', async (ctx) => {
-     let res = await Todo.findOneAndRemove({'_id': ctx.params.id})
+    let res = await Todo.findOneAndRemove({'_id': ctx.params.id})
     console.log(res)
-     ctx.body = res
+    ctx.body = res
   })
 
-  app.use(bodyParser());
-  app.use(router.routes());
+  app.use(bodyParser())
+  app.use(router.routes())
 }
-
-
-

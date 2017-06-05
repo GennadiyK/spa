@@ -5,16 +5,15 @@ let todoTask = {
   taskText: 'Task text - TEST'
 }
 
-let task;
-
+let task
 
 exports.load = async function () {
   task = await Todo.create(todoTask)
   return task
 }
 
-exports.getTodo = async function() {
-  return await Todo.find({'_id': task._id})
+exports.getTodo = function () {
+  return Todo.find({'_id': task._id})
 }
 
 exports.deleteTodo = async function () {

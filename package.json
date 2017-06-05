@@ -10,13 +10,17 @@
     "pre-commit": "^1.2.2",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
-    "should": "^11.2.1"
+    "should": "^11.2.1",
+    "snazzy": "^7.0.0",
+    "standard": "^10.0.2"
   },
   "scripts": {
-    "test": "mocha --harmony src/test"
+    "test": "mocha --harmony src/test",
+    "lint": "standard | snazzy"
   },
   "pre-commit": [
-    "test"
+    "test",
+    "lint"
   ],
   "repository": {
     "type": "git",

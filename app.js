@@ -8,4 +8,4 @@ app.use(serve('./src/assert/img'))
 
 todoController(app)
 app.listen(serverPort)
-console.log("Application started. Listening on port:" + serverPort);
+console.log('Application started. Listening on port:' + serverPort)
