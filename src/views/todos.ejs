@@ -27,7 +27,7 @@
                  <div class="panel-heading"><%= todos[i].taskTitle%> <button class="btn btn-delete panel-btn" data-id="<%= `${todos[i]._id}`%>"><i class="glyphicon glyphicon-remove"></i></button></div>
                  <div class="panel-body">
                      <p><%= todos[i].taskText %></p>
-                     <a class="btn btn-success btn-edit" href="<%= `${port}/todo/edit/${todos[i]._id}`%>">Edit</a>
+                     <a class="btn btn-success btn-edit" href="<%= `/todo/edit/${todos[i]._id}`%>">Edit</a>
                  </div>
 
              </div>

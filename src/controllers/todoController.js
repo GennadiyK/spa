@@ -1,7 +1,6 @@
 const router = require('koa-router')()
 const views = require('koa-views')
 const bodyParser = require('koa-bodyparser')
-const {apiPrefix} = require('../../config.json')
 const Todo = require('../db/todo')
 
 
@@ -11,7 +10,7 @@ module.exports = function(app) {
   router.get('/todo', async (ctx) => {
     ctx.status = 200
     let data = await Todo.find({})
-    await ctx.render('todos', {todos: data, port: apiPrefix})
+    await ctx.render('todos', {todos: data})
   })
 
   router.get('/todo/edit/:id', async (ctx) => {

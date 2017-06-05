@@ -2,10 +2,8 @@ const {apiPrefix, serverPort} = require('../../config.json')
 const app = require('../../app')
 const loadFixtures = require('./fixtures/fixtures')
 const todo = require('./fixtures/todo')
-let assert = require('assert');
-const request = require("request").defaults({
-  encoding: null
-});
+const expect = require('expect.js');
+const request = require('async-request');
 
 let server, task
 
@@ -26,11 +24,18 @@ describe('todo REST API', () => {
     todo.deleteTodo()
   })
 
-  describe('GET /todo', function(){
+  describe('GET /todo', () => {
     it('should return task from db', async () => {
       let [task] = await todo.getTodo()
-      assert.equal(task.taskTitle, 'Task title - TEST');
-      assert.equal(task.taskText, 'Task text - TEST');
+      expect(task.taskTitle).to.be('Task title - TEST');
+      expect(task.taskText).to.be('Task text - TEST');
+    })
+
+    it('should return html', async () => {
+      let response = await request(`${apiPrefix}/todo`, {method: 'GET'})
+      expect(response.statusCode).to.be(200)
+      expect(response.body).to.be.ok()
+      expect(response.headers['content-type']).to.be('text/html; charset=utf-8')
     })
   })
 });
