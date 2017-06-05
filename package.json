@@ -7,6 +7,7 @@
     "async-request": "^1.2.0",
     "cross-env": "^5.0.0",
     "expect.js": "^0.3.1",
+    "pre-commit": "^1.2.2",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "should": "^11.2.1"
