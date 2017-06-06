@@ -16,6 +16,10 @@ exports.getTodo = function () {
   return Todo.find({'_id': task._id})
 }
 
-exports.deleteTodo = async function () {
-  await Todo.findOneAndRemove({'_id': task._id})
+exports.deleteTodo = async function (id) {
+  if (id) {
+    await Todo.findOneAndRemove({'_id': id})
+  } else {
+    await Todo.findOneAndRemove({'_id': task._id})
+  }
 }
