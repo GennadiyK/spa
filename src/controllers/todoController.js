@@ -14,7 +14,6 @@ module.exports = function (app) {
 
   router.get('/todo/edit/:id', async (ctx) => {
     let [data] = await Todo.find({'_id': ctx.params.id})
-    console.log(data)
     ctx.status = 200
     await ctx.render('todoEdit', { todo: data })
   })
@@ -43,7 +42,6 @@ module.exports = function (app) {
 
   router.delete('/todo/:id', async (ctx) => {
     let res = await Todo.findOneAndRemove({'_id': ctx.params.id})
-    console.log(res)
     ctx.body = res
   })
 

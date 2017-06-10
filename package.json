@@ -16,7 +16,8 @@
   },
   "scripts": {
     "test": "mocha --harmony src/test",
-    "lint": "standard | snazzy"
+    "lint": "standard | snazzy",
+    "fix": "standard fix"
   },
   "pre-commit": [
     "test",
