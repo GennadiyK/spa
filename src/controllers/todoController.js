@@ -19,11 +19,15 @@ module.exports = function (app) {
   })
 
   router.post('/todo', async (ctx) => {
+    if (!(ctx.request.body.taskTitle || ctx.request.body.taskText)) {
+      ctx.throw(400)
+    }
     /* ToDo: add headers */
     let data = await Todo.create({
       taskTitle: ctx.request.body.taskTitle,
       taskText: ctx.request.body.taskText
     })
+
     ctx.status = 201
     ctx.res.setHeader('Content-Type', 'application/json')
     ctx.body = data
