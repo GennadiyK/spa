@@ -39,6 +39,11 @@ describe('todo REST API', () => {
       expect(response.headers['content-type']).to.be('text/html; charset=utf-8')
     })
 
+    it('GET - should return 404', async () => {
+      let response = await request(`${apiPrefix}/`, {method: 'GET'})
+      expect(response.statusCode).to.be(404)
+    })
+
     it('POST - should create new document', async () => {
       let task = {
         taskTitle: 'New task created',
