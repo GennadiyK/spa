@@ -1,11 +1,7 @@
 const router = require('koa-router')()
-const views = require('koa-views')
-const bodyParser = require('koa-bodyparser')
 const Todo = require('../db/todo')
 
 module.exports = function (app) {
-  app.use(views(`src/views`, { extension: 'ejs' }))
-
   router.get('/todo', async (ctx) => {
     ctx.status = 200
     let data = await Todo.find({})
@@ -22,7 +18,7 @@ module.exports = function (app) {
     if (!(ctx.request.body.taskTitle || ctx.request.body.taskText)) {
       ctx.throw(400)
     }
-    /* ToDo: add headers */
+
     let data = await Todo.create({
       taskTitle: ctx.request.body.taskTitle,
       taskText: ctx.request.body.taskText
@@ -49,6 +45,5 @@ module.exports = function (app) {
     ctx.body = res
   })
 
-  app.use(bodyParser())
   app.use(router.routes())
 }

@@ -19,5 +19,12 @@ exports.init = app => {
         console.error(e.message, e.stack)
       }
     }
+
+    let type = ctx.accepts('html', 'json')
+    if (type === 'json') {
+      ctx.body = {
+        error: ctx.body
+      }
+    }
   })
 }

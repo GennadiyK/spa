@@ -15,6 +15,7 @@
     "standard": "^10.0.2"
   },
   "scripts": {
+    "start": "nodemon app.js",
     "test": "mocha --harmony src/test",
     "lint": "standard | snazzy",
     "fix": "standard fix"
@@ -37,8 +38,10 @@
     "koa": "^2.0.0-alpha.8",
     "koa-bodyparser": "^3.2.0",
     "koa-ejs": "^4.0.0",
+    "koa-favicon": "^2.0.0",
     "koa-json": "^2.0.2",
     "koa-router": "^7.1.1",
+    "koa-session-async": "0.0.2",
     "koa-static": "^3.0.0",
     "koa-views": "^5.2.1",
     "mongoose": "^4.10.4"
