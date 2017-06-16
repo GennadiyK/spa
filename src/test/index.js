@@ -40,7 +40,7 @@ describe('todo REST API', () => {
     })
 
     it('GET - should return 404', async () => {
-      let response = await request(`${apiPrefix}/`, {method: 'GET'})
+      let response = await request(`${apiPrefix}/test`, {method: 'GET'})
       expect(response.statusCode).to.be(404)
     })
 

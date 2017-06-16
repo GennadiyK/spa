@@ -2,6 +2,10 @@ const router = require('koa-router')()
 const Todo = require('../db/todo')
 
 module.exports = function (app) {
+  router.get('/', async (ctx) => {
+    await ctx.render('signup')
+  })
+
   router.get('/todo', async (ctx) => {
     ctx.status = 200
     let data = await Todo.find({})

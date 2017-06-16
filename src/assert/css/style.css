@@ -20,3 +20,11 @@
 .form-message {
     display: none;
 }
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+.modal-header_tabs {
+    padding-bottom: 0;
+}
