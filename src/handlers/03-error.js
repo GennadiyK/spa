@@ -8,11 +8,11 @@ exports.init = app => {
       const status = ctx.status || 404
       if (status === 404) {
         ctx.throw(404)
+        await ctx.render('error', {message: 'Not Found'})
       }
     } catch (e) {
       if (e.status) {
         ctx.status = e.status
-        await ctx.render('error', {message: e.message})
       } else {
         ctx.body = 'Error 500'
         ctx.status = 500

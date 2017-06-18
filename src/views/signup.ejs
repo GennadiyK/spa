@@ -15,28 +15,32 @@
                 <div class="modal-header modal-header_tabs">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#signIn" aria-controls="signIn" role="tab" data-toggle="tab">Sign In</a></li>
-                        <li role="presentation"><a href="#signUp" aria-controls="signUp" role="tab" data-toggle="tab">Sign Up</a></li>
+                        <li role="presentation" class="active" ><a href="#signUp" aria-controls="signUp" role="tab" data-toggle="tab">Registration</a></li>
+                        <li role="presentation" ><a href="#signIn" aria-controls="signIn" role="tab" data-toggle="tab">Sign In</a></li>
                     </ul>
                 </div>
                 <div class="modal-body">
-                    <div>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="signUp">
+                            <form action="/user" method="post">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" class="form-control" placeholder="Email" name="email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control" placeholder="Password" name="password">
+                                </div>
 
-                        <!-- Nav tabs -->
-
-
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="signIn">1</div>
-                            <div role="tabpanel" class="tab-pane" id="signUp">2</div>
+                                <button type="submit" class="btn btn-primary">Sign Up</button>
+                            </form>
                         </div>
-
+                        <div role="tabpanel" class="tab-pane" id="signIn">
+                            <button type="button" class="btn btn-primary">Sign In</button>
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+
             </div><!-- /.modal-content -->
         </div>
     </div>

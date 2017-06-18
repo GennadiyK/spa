@@ -1,5 +1,6 @@
 const router = require('koa-router')()
 const Todo = require('../db/todo')
+const User = require('../db/user')
 
 module.exports = function (app) {
   router.get('/', async (ctx) => {
@@ -33,6 +34,25 @@ module.exports = function (app) {
     ctx.body = data
   })
 
+  router.post('/user', async (ctx) => {
+    let user
+    try {
+      user = await User.create({
+        email: ctx.request.body.email,
+        password: ctx.request.body.password
+      })
+    } catch (err) {
+      if (err.code === 11000) {
+        ctx.throw(409)
+      }
+      throw err
+    }
+
+    ctx.status = 201
+    ctx.res.setHeader('Content-Type', 'application/json')
+    ctx.body = user
+  })
+
   router.put('/todo/edit/:id', async (ctx) => {
     let {taskTitle, taskText} = ctx.request.body
     try {
@@ -40,7 +60,7 @@ module.exports = function (app) {
       ctx.status = 200
       ctx.body = 'ok'
     } catch (err) {
-      throw (err)
+      throw err
     }
   })
 
