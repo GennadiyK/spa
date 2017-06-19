@@ -16,7 +16,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active" ><a href="#signUp" aria-controls="signUp" role="tab" data-toggle="tab">Registration</a></li>
-                        <li role="presentation" ><a href="#signIn" aria-controls="signIn" role="tab" data-toggle="tab">Sign In</a></li>
+                        <li role="presentation" ><a href="#login" aria-controls="login" role="tab" data-toggle="tab">Login</a></li>
                     </ul>
                 </div>
                 <div class="modal-body">
@@ -35,8 +35,8 @@
                                 <button type="submit" class="btn btn-primary">Sign Up</button>
                             </form>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="signIn">
-                            <button type="button" class="btn btn-primary">Sign In</button>
+                        <div role="tabpanel" class="tab-pane" id="login">
+                            <button type="button" class="btn btn-primary">Login</button>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,10 @@
 </div>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script>
-  $('#myModal').modal()
+  $('#myModal').modal({
+    keyboard: false,
+    backdrop: 'static'
+  })
 </script>
 </body>
 </html>

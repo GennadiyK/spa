@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Authentication</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="modal fade in" tabindex="-1" role="dialog" id="myModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="text-center text-primary"><span class="glyphicon glyphicon-home"></span> Authentication</h1>
+                </div>
+                <div class="modal-body">
+                    <p class="lead">Welcome to the ToDo application</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="/login" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> Login</a>
+                    <a href="/signup" class="btn btn-success"><span class="glyphicon glyphicon-user"></span> Sign up</a>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script>
+  $('#myModal').modal({
+    keyboard: false,
+    backdrop: 'static'
+  })
+</script>
+</body>
+</html>

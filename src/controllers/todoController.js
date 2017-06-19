@@ -4,7 +4,16 @@ const User = require('../db/user')
 
 module.exports = function (app) {
   router.get('/', async (ctx) => {
-    await ctx.render('signup')
+    await ctx.render('index')
+  })
+
+  router.get('/login', async (ctx) => {
+    await ctx.render('login')
+  })
+
+  router.get('/logout', async (ctx) => {
+    ctx.logout()
+    ctx.redirect('/')
   })
 
   router.get('/todo', async (ctx) => {
@@ -68,6 +77,13 @@ module.exports = function (app) {
     let res = await Todo.findOneAndRemove({'_id': ctx.params.id})
     ctx.body = res
   })
+
+  // function isLoggedIn (ctx, next) {
+  //   if (ctx.isAuthenticated()) {
+  //     return next()
+  //   }
+  //   ctx.rederect('/')
+  // }
 
   app.use(router.routes())
 }
