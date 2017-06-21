@@ -28,3 +28,7 @@
 .modal-header_tabs {
     padding-bottom: 0;
 }
+
+.center-block {
+    float: none;
+}

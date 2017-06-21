@@ -1,6 +1,7 @@
 const mongoose = require('./mongoose')
+const bcrypt = require('bcryptjs')
 
-let userSchema = new mongoose.Schema({
+let UserSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
@@ -11,4 +12,8 @@ let userSchema = new mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('User', userSchema)
+UserSchema.methods.generateHash = (passport) => {
+  return bcrypt.hashSync(passport, bcrypt.genSaltSync(8), null)
+}
+
+module.exports = mongoose.model('User', UserSchema)

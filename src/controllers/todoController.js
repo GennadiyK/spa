@@ -11,6 +11,10 @@ module.exports = function (app) {
     await ctx.render('login')
   })
 
+  router.get('/signup', async (ctx) => {
+    await ctx.render('signup')
+  })
+
   router.get('/logout', async (ctx) => {
     ctx.logout()
     ctx.redirect('/')
@@ -60,6 +64,10 @@ module.exports = function (app) {
     ctx.status = 201
     ctx.res.setHeader('Content-Type', 'application/json')
     ctx.body = user
+  })
+
+  router.post('/login', async () => {
+
   })
 
   router.put('/todo/edit/:id', async (ctx) => {
