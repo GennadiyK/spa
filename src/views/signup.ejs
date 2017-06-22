@@ -16,7 +16,10 @@
             <ol class="breadcrumb">
                 <li><a href="/">Go Home</a></li>
             </ol>
-            <form action="/user" method="post">
+            <% if ( message.length > 0) { %>
+                <div class="alert alert-danger"><%= message %></div>
+            <% } %>
+            <form action="/signup" method="post">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
                     <input type="email" class="form-control" placeholder="Email" name="email">
