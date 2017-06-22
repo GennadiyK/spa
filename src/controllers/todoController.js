@@ -20,6 +20,10 @@ module.exports = function (app) {
     ctx.redirect('/')
   })
 
+  router.get('/profile', async (ctx) => {
+    await ctx.render('profile')
+  })
+
   router.get('/todo', async (ctx) => {
     ctx.status = 200
     let data = await Todo.find({})
@@ -53,10 +57,11 @@ module.exports = function (app) {
       failureRedirect: '/signup',
       failureFlash: true
     })(ctx, next)
+    console.log(ctx.session)
   })
 
-  router.get('/profile', async (ctx) => {
-    await ctx.render('profile')
+  router.post('/login', async (ctx) => {
+    console.log(ctx.session)
   })
 
   router.put('/todo/edit/:id', async (ctx) => {
