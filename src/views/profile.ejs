@@ -8,7 +8,27 @@
 </head>
 <body>
 <div class="container-fluid">
-    <h1 class="text-center">Profile</h1>
+    <div class="row">
+        <div class="col-xs-4 center-block">
+            <div class="page-header">
+                <h1>Profile</h1>
+                <ol class="breadcrumb">
+                    <li><a href="/logout">Logout</a></li>
+                </ol>
+            </div>
+            <div class="thumbnail">
+                <div class="avatar-wrap">
+                    <i class="glyphicon glyphicon-user avatar"></i>
+                </div>
+                <div class="caption">
+                    <ul class="list-group">
+                        <li class="list-group-item">Name: <%= user._id %></li>
+                        <li class="list-group-item">Email: <%= user.email %></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

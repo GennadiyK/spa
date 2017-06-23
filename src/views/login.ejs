@@ -16,6 +16,9 @@
             <ol class="breadcrumb">
                 <li><a href="/">Go Home</a></li>
             </ol>
+            <% if ( message.length > 0) { %>
+            <div class="alert alert-danger"><%= message %></div>
+            <% } %>
             <form action="/login" method="post">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
@@ -27,7 +30,6 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Login</button>
             </form>
-
         </div>
     </div>
 </div>

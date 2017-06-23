@@ -8,7 +8,7 @@ module.exports = function (app) {
   })
 
   router.get('/login', async (ctx) => {
-    await ctx.render('login')
+    await ctx.render('login', { message: ctx.flash('loginMessage') })
   })
 
   router.get('/signup', async (ctx) => {
@@ -16,12 +16,12 @@ module.exports = function (app) {
   })
 
   router.get('/logout', async (ctx) => {
-    ctx.logout()
-    ctx.redirect('/')
+    await ctx.logout()
+    await ctx.redirect('/')
   })
 
-  router.get('/profile', async (ctx) => {
-    await ctx.render('profile')
+  router.get('/profile', isLoggedIn, async (ctx) => {
+    await ctx.render('profile', { user: ctx.req.user })
   })
 
   router.get('/todo', async (ctx) => {
@@ -52,16 +52,19 @@ module.exports = function (app) {
   })
 
   router.post('/signup', async (ctx, next) => {
-    await passport.authenticate('local-signup', {
+    await passport.authenticate('signup', {
       successRedirect: '/profile',
       failureRedirect: '/signup',
       failureFlash: true
     })(ctx, next)
-    console.log(ctx.session)
   })
 
-  router.post('/login', async (ctx) => {
-    console.log(ctx.session)
+  router.post('/login', async (ctx, next) => {
+    await passport.authenticate('login', {
+      successRedirect: '/profile',
+      failureRedirect: '/login',
+      failureFlash: true
+    })(ctx, next)
   })
 
   router.put('/todo/edit/:id', async (ctx) => {
@@ -80,12 +83,12 @@ module.exports = function (app) {
     ctx.body = res
   })
 
-  // function isLoggedIn (ctx, next) {
-  //   if (ctx.isAuthenticated()) {
-  //     return next()
-  //   }
-  //   ctx.rederect('/')
-  // }
+  async function isLoggedIn (ctx, next) {
+    if (ctx.isAuthenticated()) {
+      return next()
+    }
+    await ctx.redirect('/')
+  }
 
   app.use(router.routes())
 }
