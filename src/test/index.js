@@ -4,7 +4,7 @@ const app = require('../../app')
 const loadFixtures = require('./fixtures/fixtures')
 const todo = require('./fixtures/todo')
 const expect = require('expect.js')
-const request = require('async-request')
+const request = require('request-promise')
 
 let server
 
@@ -33,14 +33,25 @@ describe('todo REST API', () => {
     })
 
     it('GET - should return html', async () => {
-      let response = await request(`${apiPrefix}/todo`, {method: 'GET'})
+      let options = {
+        method: 'GET',
+        uri: `${apiPrefix}/todo`,
+        resolveWithFullResponse: true
+      }
+      let response = await request(options)
       expect(response.statusCode).to.be(200)
       expect(response.body).to.be.ok()
       expect(response.headers['content-type']).to.be('text/html; charset=utf-8')
     })
 
     it('GET - should return 404', async () => {
-      let response = await request(`${apiPrefix}/test`, {method: 'GET'})
+      let options = {
+        method: 'GET',
+        uri: `${apiPrefix}/test`,
+        simple: false,
+        resolveWithFullResponse: true
+      }
+      let response = await request(options)
       expect(response.statusCode).to.be(404)
     })
 
@@ -49,8 +60,15 @@ describe('todo REST API', () => {
         taskTitle: 'New task created',
         taskText: 'This is new task'
       }
-      let response = await request(`${apiPrefix}/todo`, {method: 'POST', data: task})
-      let body = JSON.parse(response.body)
+      let options = {
+        method: 'POST',
+        uri: `${apiPrefix}/todo`,
+        body: task,
+        json: true,
+        resolveWithFullResponse: true
+      }
+      let response = await request(options)
+      let body = response.body.error
       expect(response.statusCode).to.be(201)
       expect(body.taskTitle).to.be('New task created')
       expect(body.taskText).to.be('This is new task')
