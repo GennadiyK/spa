@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-const {apiPrefix, serverPort} = require('../../config.json')
+const {apiPrefix, serverPort, serverHost} = require('../../config.json')
 const app = require('../../app')
 const loadFixtures = require('./fixtures/fixtures')
 const todo = require('./fixtures/todo')
@@ -9,8 +9,8 @@ const request = require('request-promise')
 let server
 
 describe('todo REST API', () => {
-  before((done) => {
-    server = app.listen(serverPort, '127.0.0.1', done)
+  before(async () => {
+    server = app.listen(serverPort, serverHost)
   })
 
   after(done => {

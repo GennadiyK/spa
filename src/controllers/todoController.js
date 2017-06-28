@@ -8,11 +8,11 @@ module.exports = function (app) {
   })
 
   router.get('/login', async (ctx) => {
-    await ctx.render('login', { message: ctx.flash('loginMessage') })
+    await ctx.render('login', { message: ctx.flash('loginMessage'), pageTitle: 'Login', action: 'login' })
   })
 
   router.get('/signup', async (ctx) => {
-    await ctx.render('signup', { message: ctx.flash('signupMessage') })
+    await ctx.render('signup', { message: ctx.flash('signupMessage'), pageTitle: 'Sign Up', action: 'signup' })
   })
 
   router.get('/logout', async (ctx) => {

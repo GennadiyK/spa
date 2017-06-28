@@ -1,6 +1,7 @@
 {
   "apiPrefix": "http://localhost:3000",
   "serverPort": "3000",
+  "serverHost": "localhost",
   "db":{
     "name": "notes",
     "host": "localhost",

@@ -13,4 +13,3 @@ handlers.forEach((handler) => {
 
 todoController(app)
 app.listen(serverPort)
-console.log('Application started. Listening on port:' + serverPort)

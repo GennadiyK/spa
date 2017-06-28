@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-4 center-block">
+            <div class="page-header">
+                <h1><%= pageTitle %></h1>
+            </div>
+            <ol class="breadcrumb">
+                <li><a href="/">Go Home</a></li>
+            </ol>
+            <% if ( message.length > 0) { %>
+              <div class="alert alert-danger"><%= message %></div>
+            <% } %>
+            <form action="/<%= action %>" method="post">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" placeholder="Email" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" placeholder="Password" name="password">
+                </div>
+                <button type="submit" class="btn btn-primary">pageTitle</button>
+            </form>
+        </div>
+    </div>
+</div>
