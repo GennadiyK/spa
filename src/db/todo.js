@@ -1,5 +1,8 @@
 const mongoose = require('./mongoose')
 let todoSchema = new mongoose.Schema({
+  userId: {
+    type: String
+  },
   taskTitle: {
     type: String
   },

@@ -21,13 +21,8 @@ module.exports = function (app) {
   })
 
   router.get('/profile', isLoggedIn, async (ctx) => {
-    await ctx.render('profile', { user: ctx.req.user })
-  })
-
-  router.get('/todo', async (ctx) => {
-    ctx.status = 200
-    let data = await Todo.find({})
-    await ctx.render('todos', {todos: data})
+    let data = await Todo.find({'userId': ctx.session.passport.user})
+    await ctx.render('profile', {user: ctx.req.user, todos: data})
   })
 
   router.get('/todo/edit/:id', async (ctx) => {
@@ -40,8 +35,8 @@ module.exports = function (app) {
     if (!(ctx.request.body.taskTitle || ctx.request.body.taskText)) {
       ctx.throw(400)
     }
-
     let data = await Todo.create({
+      userId: ctx.session.passport.user,
       taskTitle: ctx.request.body.taskTitle,
       taskText: ctx.request.body.taskText
     })

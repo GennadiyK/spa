@@ -26,7 +26,7 @@ describe('todo REST API', () => {
   })
 
   describe('API', () => {
-    it('GET - should return task from db', async () => {
+    it.only('GET - should return task from db', async () => {
       let [task] = await todo.getTodo()
       expect(task.taskTitle).to.be('Task title - TEST')
       expect(task.taskText).to.be('Task text - TEST')
