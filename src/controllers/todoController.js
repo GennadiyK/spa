@@ -1,5 +1,6 @@
 const router = require('koa-router')()
 const Todo = require('../db/todo')
+const User = require('../db/user')
 const passport = require('koa-passport')
 
 module.exports = function (app) {
@@ -25,13 +26,13 @@ module.exports = function (app) {
     await ctx.render('profile', {user: ctx.req.user, todos: data})
   })
 
-  router.get('/todo/edit/:id', async (ctx) => {
-    let [data] = await Todo.find({'_id': ctx.params.id})
+  router.get('/todo/edit/:id', isLoggedIn, async (ctx) => {
+    let data = await Todo.findOne({'_id': ctx.params.id})
     ctx.status = 200
     await ctx.render('todoEdit', { todo: data })
   })
 
-  router.post('/todo', async (ctx) => {
+  router.post('/todo', isLoggedIn, async (ctx) => {
     if (!(ctx.request.body.taskTitle || ctx.request.body.taskText)) {
       ctx.throw(400)
     }
@@ -47,11 +48,24 @@ module.exports = function (app) {
   })
 
   router.post('/signup', async (ctx, next) => {
-    await passport.authenticate('signup', {
-      successRedirect: '/profile',
-      failureRedirect: '/signup',
-      failureFlash: true
-    })(ctx, next)
+    let {email, password} = ctx.request.body
+
+    try {
+      let user = await User.findOne({'email': email})
+      if (user) {
+        ctx.flash('signupMessage', 'That email is already taken.')
+        ctx.redirect('/signup')
+      } else {
+        let newUser = new User()
+        newUser.email = email
+        newUser.password = newUser.generateHash(password)
+        let savedUser = await newUser.save()
+        await ctx.login(savedUser)
+        await ctx.redirect('/profile')
+      }
+    } catch (err) {
+      throw err
+    }
   })
 
   router.post('/login', async (ctx, next) => {
@@ -73,7 +87,7 @@ module.exports = function (app) {
     }
   })
 
-  router.delete('/todo/:id', async (ctx) => {
+  router.delete('/todo/:id', isLoggedIn, async (ctx) => {
     let res = await Todo.findOneAndRemove({'_id': ctx.params.id})
     ctx.body = res
   })

@@ -19,7 +19,7 @@
             <textarea name="taskText" class="form-control" placeholder="Add text..." required><%= todo.taskText %></textarea>
         </div>
         <button class="btn btn-warning" type="submit">Save</button>
-        <a class="btn btn-default" href="/todo">back</a>
+        <a class="btn btn-default" href="/profile">back</a>
         <span class="form-message" id="alert"></span>
     </form>
 </div>
@@ -29,8 +29,8 @@
 
  todoForm.addEventListener('submit', function(e) {
    e.preventDefault();
-   let taskId = todoForm.dataset.id
-   let data = {};
+   let taskId = todoForm.dataset.id;
+   let data;
 
    try {
      data = JSON.stringify({taskTitle: form.taskTitle.value, taskText: form.taskText.value})
