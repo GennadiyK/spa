@@ -26,7 +26,7 @@ module.exports = function (app) {
     await ctx.render('profile', {user: ctx.req.user, todos: data})
   })
 
-  router.get('/todo/edit/:id', isLoggedIn, async (ctx) => {
+  router.get('/todo/edit/:id', isLoggedIn, async (ctx, next) => {
     let data = await Todo.findOne({'_id': ctx.params.id})
     ctx.status = 200
     await ctx.render('todoEdit', { todo: data })
