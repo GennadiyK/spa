@@ -26,25 +26,13 @@ describe('todo REST API', () => {
   })
 
   describe('API', () => {
-    it.only('GET - should return task from db', async () => {
+    it.only('GET task- should return task from db', async () => {
       let [task] = await todo.getTodo()
       expect(task.taskTitle).to.be('Task title - TEST')
       expect(task.taskText).to.be('Task text - TEST')
     })
 
-    it('GET - should return html', async () => {
-      let options = {
-        method: 'GET',
-        uri: `${apiPrefix}/todo`,
-        resolveWithFullResponse: true
-      }
-      let response = await request(options)
-      expect(response.statusCode).to.be(200)
-      expect(response.body).to.be.ok()
-      expect(response.headers['content-type']).to.be('text/html; charset=utf-8')
-    })
-
-    it('GET - should return 404', async () => {
+    it.only('GET - should return 404', async () => {
       let options = {
         method: 'GET',
         uri: `${apiPrefix}/test`,
@@ -55,7 +43,7 @@ describe('todo REST API', () => {
       expect(response.statusCode).to.be(404)
     })
 
-    it('POST - should create new document', async () => {
+    it('POST - should create new task', async () => {
       let task = {
         taskTitle: 'New task created',
         taskText: 'This is new task'
@@ -68,11 +56,37 @@ describe('todo REST API', () => {
         resolveWithFullResponse: true
       }
       let response = await request(options)
-      let body = response.body.error
-      expect(response.statusCode).to.be(201)
-      expect(body.taskTitle).to.be('New task created')
-      expect(body.taskText).to.be('This is new task')
-      await todo.deleteTodo(body._id)
+      console.log('!!!', response)
+      // expect(response.statusCode).to.be(201)
+      // expect(body.taskTitle).to.be('New task created')
+      // expect(body.taskText).to.be('This is new task')
+      // await todo.deleteTodo(body._id)
+    })
+
+    it.only('PUT - should update task', async () => {
+      let [task] = await todo.getTodo()
+      let newData = {
+        taskTitle: 'New title',
+        taskText: 'New text'
+      }
+      let options = {
+        method: 'PUT',
+        uri: `${apiPrefix}/todo/edit/${task._id}`,
+        body: newData,
+        json: true,
+        resolveWithFullResponse: true
+      }
+      let response = await request(options)
+      expect(response.statusCode).to.be(200)
+      expect(response.body.error.taskTitle).to.be(newData.taskTitle)
+      expect(response.body.error.taskText).to.be(newData.taskText)
+    })
+
+    it.only('DELETE - should delete task by ID from db', async () => {
+      let [task] = await todo.getTodo()
+      await todo.deleteTodo(task._id)
+      let data = await todo.getTodo()
+      expect(data.length).to.be(0)
     })
   })
 })

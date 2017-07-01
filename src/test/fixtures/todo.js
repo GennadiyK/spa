@@ -7,16 +7,20 @@ let todoTask = {
 
 let task
 
-exports.load = async function () {
+exports.load = async () => {
   task = await Todo.create(todoTask)
   return task
 }
 
-exports.getTodo = function () {
+exports.getTodo = () => {
   return Todo.find({'_id': task._id})
 }
 
-exports.deleteTodo = async function (id) {
+exports.updateTodo = (title, text) => {
+  return Todo.findOneAndUpdate({ _id: task._id }, {'taskTitle': title, 'taskText': text}, { new: true })
+}
+
+exports.deleteTodo = async (id) => {
   if (id) {
     await Todo.findOneAndRemove({'_id': id})
   } else {
