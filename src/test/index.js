@@ -3,6 +3,7 @@ const {apiPrefix, serverPort, serverHost} = require('../../config.json')
 const app = require('../../app')
 const loadFixtures = require('./fixtures/fixtures')
 const todo = require('./fixtures/todo')
+const user = require('./fixtures/user')
 const expect = require('expect.js')
 const request = require('request-promise')
 
@@ -21,8 +22,9 @@ describe('todo REST API', () => {
     await loadFixtures()
   })
 
-  afterEach(() => {
-    todo.deleteTodo()
+  afterEach(async () => {
+    await todo.deleteTodo()
+    await user.deleteUser()
   })
 
   describe('API', () => {
@@ -32,7 +34,7 @@ describe('todo REST API', () => {
       expect(task.taskText).to.be('Task text - TEST')
     })
 
-    it.only('GET - should return 404', async () => {
+    it('GET - should return 404', async () => {
       let options = {
         method: 'GET',
         uri: `${apiPrefix}/test`,
@@ -44,6 +46,7 @@ describe('todo REST API', () => {
     })
 
     it('POST - should create new task', async () => {
+      console.log('USER', user.getUser())
       let task = {
         taskTitle: 'New task created',
         taskText: 'This is new task'
@@ -63,7 +66,7 @@ describe('todo REST API', () => {
       // await todo.deleteTodo(body._id)
     })
 
-    it.only('PUT - should update task', async () => {
+    it('PUT - should update task', async () => {
       let [task] = await todo.getTodo()
       let newData = {
         taskTitle: 'New title',
@@ -82,7 +85,7 @@ describe('todo REST API', () => {
       expect(response.body.error.taskText).to.be(newData.taskText)
     })
 
-    it.only('DELETE - should delete task by ID from db', async () => {
+    it('DELETE - should delete task by ID from db', async () => {
       let [task] = await todo.getTodo()
       await todo.deleteTodo(task._id)
       let data = await todo.getTodo()
