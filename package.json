@@ -40,6 +40,7 @@
     "koa": "^2.0.0-alpha.8",
     "koa-bodyparser": "^3.2.0",
     "koa-connect-flash": "^0.1.2",
+    "koa-csrf": "^3.0.6",
     "koa-ejs": "^4.0.0",
     "koa-favicon": "^2.0.0",
     "koa-json": "^2.0.2",

@@ -27,8 +27,8 @@ describe('todo REST API', () => {
     await user.deleteUser()
   })
 
-  describe('API', () => {
-    it.only('GET task- should return task from db', async () => {
+  describe.skip('API', () => {
+    it('GET task- should return task from db', async () => {
       let [task] = await todo.getTodo()
       expect(task.taskTitle).to.be('Task title - TEST')
       expect(task.taskText).to.be('Task text - TEST')
