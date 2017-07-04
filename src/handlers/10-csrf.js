@@ -9,11 +9,4 @@ exports.init = (app) => {
     excludedMethods: [ 'GET', 'HEAD', 'OPTIONS' ],
     disableQuery: false
   }))
-
-  app.use(async (ctx, next) => {
-    if (!['GET', 'POST'].includes(ctx.method)) {
-      return next()
-    }
-    await next()
-  })
 }
