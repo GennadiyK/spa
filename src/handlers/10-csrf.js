@@ -1,6 +1,6 @@
 let Csrf = require('koa-csrf')
 
-exports.init = (app) => {
+exports.init = app => {
   app.use(new Csrf({
     invalidSessionSecretMessage: 'Invalid session secret',
     invalidSessionSecretStatusCode: 403,

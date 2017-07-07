@@ -28,13 +28,13 @@ describe('todo REST API', () => {
   })
 
   describe.skip('API', () => {
-    it('GET task- should return task from db', async () => {
+    it.skip('GET task- should return task from db', async () => {
       let [task] = await todo.getTodo()
       expect(task.taskTitle).to.be('Task title - TEST')
       expect(task.taskText).to.be('Task text - TEST')
     })
 
-    it('GET - should return 404', async () => {
+    it.skip('GET - should return 404', async () => {
       let options = {
         method: 'GET',
         uri: `${apiPrefix}/test`,
@@ -45,7 +45,7 @@ describe('todo REST API', () => {
       expect(response.statusCode).to.be(404)
     })
 
-    it('POST - should create new task', async () => {
+    it.skip('POST - should create new task', async () => {
       console.log('USER', user.getUser())
       let task = {
         taskTitle: 'New task created',
@@ -66,7 +66,7 @@ describe('todo REST API', () => {
       // await todo.deleteTodo(body._id)
     })
 
-    it('PUT - should update task', async () => {
+    it.skip('PUT - should update task', async () => {
       let [task] = await todo.getTodo()
       let newData = {
         taskTitle: 'New title',
@@ -85,7 +85,7 @@ describe('todo REST API', () => {
       expect(response.body.error.taskText).to.be(newData.taskText)
     })
 
-    it('DELETE - should delete task by ID from db', async () => {
+    it.skip('DELETE - should delete task by ID from db', async () => {
       let [task] = await todo.getTodo()
       await todo.deleteTodo(task._id)
       let data = await todo.getTodo()

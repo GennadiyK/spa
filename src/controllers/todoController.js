@@ -2,6 +2,8 @@ const router = require('koa-router')()
 const Todo = require('../db/todo')
 const User = require('../db/user')
 const passport = require('koa-passport')
+const nodemailer = require('../lib/mailer')
+let fs = require('fs')
 
 module.exports = function (app) {
   router.get('/', async (ctx) => {
@@ -62,6 +64,24 @@ module.exports = function (app) {
         let savedUser = await newUser.save()
         await ctx.login(savedUser)
         await ctx.redirect('/profile')
+
+        let html = new Promise((resolve, reject) => {
+          fs.readFile(`${__dirname}/../views/email.ejs`, 'utf8', (error, data) => {
+            if (error) {
+              reject(error)
+            }
+            resolve(data)
+          })
+        })
+
+        let mailOprions = {
+          from: '"Gennadiy Kalinouski" <7742589@gmail.com>',
+          to: email,
+          subject: 'You registered successfully!',
+          html: await html
+        }
+
+        nodemailer.sendMail(mailOprions)
       }
     } catch (err) {
       throw err
