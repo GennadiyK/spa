@@ -10,7 +10,7 @@
             <% if ( message.length > 0) { %>
               <div class="alert alert-danger"><%= message %></div>
             <% } %>
-            <form action="/<%= action %>" method="post">
+            <form action="/<%= action %>" method="post" id="<%= action%>">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
                     <input type="email" class="form-control" placeholder="Email" name="email">

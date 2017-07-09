@@ -20,12 +20,12 @@ module.exports = function (app) {
 
   router.get('/logout', async (ctx) => {
     await ctx.logout()
-    await ctx.redirect('/')
+    ctx.redirect('/')
   })
 
   router.get('/profile', isLoggedIn, async (ctx) => {
     let data = await Todo.find({'userId': ctx.session.passport.user})
-    await ctx.render('profile', {user: ctx.req.user, todos: data})
+    await ctx.render('profile', {user: ctx.req.user, todos: data, csrf: ctx.csrf})
   })
 
   router.get('/todo/edit/:id', isLoggedIn, async (ctx, next) => {
@@ -63,7 +63,7 @@ module.exports = function (app) {
         newUser.password = newUser.generateHash(password)
         let savedUser = await newUser.save()
         await ctx.login(savedUser)
-        await ctx.redirect('/profile')
+        ctx.redirect('/profile')
 
         let html = new Promise((resolve, reject) => {
           fs.readFile(`${__dirname}/../views/email.ejs`, 'utf8', (error, data) => {
@@ -89,6 +89,7 @@ module.exports = function (app) {
   })
 
   router.post('/login', async (ctx, next) => {
+    console.log(ctx.request.body)
     await passport.authenticate('login', {
       successRedirect: '/profile',
       failureRedirect: '/login',
@@ -116,7 +117,7 @@ module.exports = function (app) {
     if (ctx.isAuthenticated()) {
       return next()
     }
-    await ctx.redirect('/')
+    ctx.redirect('/')
   }
 
   app.use(router.routes())

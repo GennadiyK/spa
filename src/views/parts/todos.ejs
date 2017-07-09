@@ -5,6 +5,7 @@
              <div class="form-group">
                  <label for="taskTitle">Title</label>
                  <input type="text" name="taskTitle" class="form-control" placeholder="Add title..." required>
+                 <input type="hidden" name="_csrf" value="<%= csrf %>" />
              </div>
              <div class="form-group">
                  <label for="taskText">Text</label>
@@ -37,7 +38,8 @@
       xhr.send(JSON.stringify(
         {
           taskText: this.elements.taskText.value,
-          taskTitle:this.elements.taskTitle.value
+          taskTitle:this.elements.taskTitle.value,
+          _csrf: this.elements._csrf.value
         }
         ));
 
