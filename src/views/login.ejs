@@ -11,22 +11,55 @@
     <script>
         login.addEventListener('submit', function(e){
           e.preventDefault();
-          const xhr = new XMLHttpRequest();
-          xhr.open('POST', '/login', true);
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          let data = JSON.stringify(
-            {
-              email: this.elements.email.value,
-              password: this.elements.password.value,
-              _csrf: this.elements._csrf.value
-            }
-          )
-          xhr.send(data);
-          console.log(xhr.readyState)
-          xhr.onload = function () {
-            window.location = '/profile'
-          };
+//          const xhr = new XMLHttpRequest();
+//          xhr.open('POST', '/login', true);
+//          xhr.setRequestHeader('Content-Type', 'application/json');
+//          let data = JSON.stringify(
+//            {
+//              email: this.elements.email.value,
+//              password: this.elements.password.value,
+//              _csrf: this.elements._csrf.value
+//            }
+//          )
+//          xhr.send(data);
+//          console.log(xhr.readyState)
+//          xhr.onload = function () {
+//            window.location = '/profile'
+//          };
 
+          let data;
+
+          try {
+            data = JSON.stringify(
+              {
+                email: this.elements.email.value,
+                password: this.elements.password.value,
+                _csrf: this.elements._csrf.value
+              }
+            )
+          } catch(e) {
+            throw Error('Invalid JSON',e);
+          }
+
+          console.log(data)
+
+          fetch('/login', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'X-CSRFToken': this.elements._csrf.value
+            },
+            credentials:'include',
+            body: data
+          }).then((res) => {
+            console.log(res)
+            if(res.status === 200) {
+             window.location = '/profile'
+            }
+          }).catch((err) => {
+            throw err
+          })
         })
     </script>
 </body>
