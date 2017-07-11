@@ -11,22 +11,6 @@
     <script>
         login.addEventListener('submit', function(e){
           e.preventDefault();
-//          const xhr = new XMLHttpRequest();
-//          xhr.open('POST', '/login', true);
-//          xhr.setRequestHeader('Content-Type', 'application/json');
-//          let data = JSON.stringify(
-//            {
-//              email: this.elements.email.value,
-//              password: this.elements.password.value,
-//              _csrf: this.elements._csrf.value
-//            }
-//          )
-//          xhr.send(data);
-//          console.log(xhr.readyState)
-//          xhr.onload = function () {
-//            window.location = '/profile'
-//          };
-
           let data;
 
           try {
@@ -53,9 +37,12 @@
             credentials:'include',
             body: data
           }).then((res) => {
-            console.log(res)
+            let state = {}
+            let title = "profile"
+
             if(res.status === 200) {
-             window.location = '/profile'
+              history.replaceState(state, title, res.url);
+              location.reload();
             }
           }).catch((err) => {
             throw err
