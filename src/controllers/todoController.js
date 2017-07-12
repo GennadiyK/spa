@@ -64,7 +64,6 @@ module.exports = function (app) {
 
   router.post('/signup', async (ctx, next) => {
     let {email, password} = ctx.request.body
-
     try {
       let user = await User.findOne({'email': email})
       if (user) {
