@@ -14,6 +14,19 @@ module.exports = function (app) {
     await ctx.render('login', { message: ctx.flash('loginMessage'), pageTitle: 'Login', action: 'login', csrf: ctx.csrf })
   })
 
+  router.get('/login/facebook', async (ctx, next) => {
+    await passport.authenticate('facebook', {
+      scope: 'email'
+    })(ctx, next)
+  })
+
+  router.get('/login/facebook/callback', async (ctx, next) => {
+    await passport.authenticate('facebook', {
+      successRedirect: '/profile',
+      failureRedirect: '/login'
+    })(ctx, next)
+  })
+
   router.get('/signup', async (ctx) => {
     await ctx.render('signup', { message: ctx.flash('signupMessage'), pageTitle: 'Sign Up', action: 'signup', csrf: ctx.csrf })
   })
@@ -89,7 +102,6 @@ module.exports = function (app) {
   })
 
   router.post('/login', async (ctx, next) => {
-    console.log(ctx.request.body)
     await passport.authenticate('login', {
       successRedirect: '/profile',
       failureRedirect: '/login',

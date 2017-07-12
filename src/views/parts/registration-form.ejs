@@ -21,6 +21,30 @@
                     <input type="hidden" name="_csrf" value="<%= csrf %>" />
                 </div>
                 <button type="submit" class="btn btn-primary"><%= pageTitle %></button>
+
+                <% if(pageTitle === 'Login'){ %>
+                    <a href="/login/facebook" type="submit" class="btn btn-primary">Login via Facebook</a>
+
+                <script>
+                  window.fbAsyncInit = function() {
+                    FB.init({
+                      appId      : '234685973706060',
+                      cookie     : true,
+                      xfbml      : true,
+                      version    : 'v2.8'
+                    });
+                    FB.AppEvents.logPageView();
+                  };
+
+                  (function(d, s, id){
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) {return;}
+                    js = d.createElement(s); js.id = id;
+                    js.src = "//connect.facebook.net/en_US/sdk.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+                  }(document, 'script', 'facebook-jssdk'));
+                </script>
+                <% } %>
             </form>
         </div>
     </div>
