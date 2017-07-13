@@ -16,7 +16,7 @@ module.exports = function (app) {
 
   router.get('/login/facebook', async (ctx, next) => {
     await passport.authenticate('facebook', {
-      scope: 'email'
+      scope: ['email']
     })(ctx, next)
   })
 
